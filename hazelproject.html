@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>brighter eyes of hazel</title>
+
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  background: black;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+
+#word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  text-align: center;
+  user-select: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="word">click</div>
+
+<audio id="music" src="eyesofhazel.mp3"></audio>
+
+<script>
+const words = [
+  "PANIC!", "FLOOD", "PAIN", "CHOKE", "DROWN",
+  "CRY", "HELP", "TORTURE", "WEIGHT?", "hold.",
+  "wake", "yell", "anger", "noise", "exclaim",
+  "explain", "despair", "slow", "gone", "still"
+];
+
+let index = -1;
+let started = false;
+let intervalId = null;
+
+const wordEl = document.getElementById("word");
+const music = document.getElementById("music");
+
+document.body.addEventListener("click", () => {
+  if (started) return;
+
+  started = true;
+
+  music.currentTime = 0;
+  music.play().catch(err => console.log("Audio blocked:", err));
+
+  // start slideshow
+  intervalId = setInterval(() => {
+    index++;
+
+    if (index < words.length) {
+      wordEl.innerText = words[index];
+    } else {
+      clearInterval(intervalId);
+    }
+  }, 1000);
+});
+</script>
+
+</body>
+</html>
